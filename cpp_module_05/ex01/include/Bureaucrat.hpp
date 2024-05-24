@@ -5,6 +5,10 @@
 #include <iostream>
 #include <exception>
 
+#include "Form.hpp"
+
+class Form;
+
 class Bureaucrat {
 private:
     const std::string   _name;
@@ -22,10 +26,13 @@ public:
 	void				increment();
 	void				decrement();
 
+    void    signForm(const Form &form) const;
+
     class GradeTooHighException : public std::exception {
         public:
             virtual const char* what() const throw();
     };
+    
     class GradeTooLowException : public std::exception {
         public:
             virtual const char* what() const throw();
