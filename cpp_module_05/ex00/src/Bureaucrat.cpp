@@ -9,9 +9,9 @@ Bureaucrat::Bureaucrat(const std::string name, int grade): _name(name) {
     std::cout << "Another constructor Bureaucrat called" << std::endl;
 	try {
 		if (grade < 1)
-			throw gradeTooHighException();
+			throw Bureaucrat::GradeTooHighException();
 		if (grade > 150)
-			throw gradeTooLowException();	
+			throw Bureaucrat::GradeTooLowException();	
 		_grade = grade;
 	}
 	catch (std::string exceptionMessage) {
@@ -46,7 +46,7 @@ int Bureaucrat::getGrade() const {
 void Bureaucrat::increment() {
 	try {
 		if (_grade < 2)
-			throw gradeTooHighException();
+			throw Bureaucrat::GradeTooHighException();
 		_grade -= 1;
 		std::cout << _name << ", bureaucrat grade " << _grade << std::endl;
 	}
@@ -58,7 +58,7 @@ void Bureaucrat::increment() {
 void Bureaucrat::decrement() {
 	try {
 		if (_grade > 149)
-			throw gradeTooLowException();
+			throw Bureaucrat::GradeTooLowException();
 		_grade += 1;
 		std::cout << _name << ", bureaucrat grade " << _grade << std::endl;
 	}
@@ -67,11 +67,11 @@ void Bureaucrat::decrement() {
 	}
 }
 
-std::string Bureaucrat::gradeTooHighException() {
+const char* Bureaucrat::GradeTooHighException::what() const throw() {
 	return ("Exception thrown! Grade is too high.");
 }
 
-std::string Bureaucrat::gradeTooLowException() {
-	return ("Exception thrown! Grade is too Low.");
+const char* Bureaucrat::GradeTooLowException::what() const throw() {
+	return ("Exception thrown! Grade is too low.");
 }
 

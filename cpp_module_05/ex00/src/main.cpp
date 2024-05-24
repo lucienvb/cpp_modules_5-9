@@ -1,27 +1,44 @@
 #include "Bureaucrat.hpp"
 
+void    testIncrement(Bureaucrat &other) {
+    try {
+        other.increment();
+    }
+    catch (std::exception &e) {
+         std::cout << e.what() << std::endl;
+    }
+}
+
+void    testDecrement(Bureaucrat &other) {
+    try {
+        other.decrement();
+    }
+    catch (std::exception &e) {
+         std::cout << e.what() << std::endl;
+    }
+}
+
+void    testCreate(const std::string name, int grade) {
+    try {
+        Bureaucrat maurice(name, grade);
+    }
+    catch (std::exception &e) {
+         std::cout << e.what() << std::endl;
+    }
+}
+
 int main() {
-    Bureaucrat lucien;
-    lucien.increment();
-    lucien.increment();
-    lucien.increment();
-    lucien.increment();
 
-    std::cout << lucien.getGrade() << std::endl;
-    std::cout << lucien.getName() << std::endl;
+    testCreate("Lucien", 0);
+    testCreate("Lucien", 151);
+    testCreate("Lucien", 1);
+    testCreate("Lucien", 150);
 
-    Bureaucrat maurice("maurice", 0);
-    Bureaucrat jerome("jerome", 151);
-    Bureaucrat ghislaine("ghislaine", 147);
+    std::cout << "\n";
 
-    ghislaine.decrement();
-    ghislaine.decrement();
-    ghislaine.decrement();
-    ghislaine.decrement();
-    ghislaine.decrement();
+    Bureaucrat lucien("Lucien", 150);
+    testDecrement(lucien);
 
-    lucien = ghislaine;
-    std::cout << lucien.getGrade() << std::endl;
-    std::cout << lucien.getName() << std::endl;
-
+    Bureaucrat maurice("maurice", 1);
+    testIncrement(maurice);
 }
