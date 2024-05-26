@@ -62,3 +62,11 @@ void    Form::beSigned(const Bureaucrat &other) {
 		std::cout << exceptionMessage << std::endl;
 	}
 }
+
+std::ostream& operator<<(std::ostream& out, const Form& form) {
+	out << "name: " << form.getName() <<
+	"\nsigned: " << form.getSigned() <<
+	"\nsign grade: " << form.getSignGrade() <<
+	"\nexecute grade: " << form.getExecuteGrade() << std::endl;
+	return out;
+}
