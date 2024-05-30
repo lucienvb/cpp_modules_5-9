@@ -51,6 +51,10 @@ const char* AForm::GradeTooLowException::what() const throw() {
 	return ("Exception thrown! Grade is too low.");
 }
 
+const char* AForm::FormNotSignedException::what() const throw() {
+	return ("Exception thrown! Grade is not signed.");
+}
+
 void    AForm::beSigned(const Bureaucrat &other) {
     try {
         if (other.getGrade() > _sign_grade)
@@ -61,6 +65,13 @@ void    AForm::beSigned(const Bureaucrat &other) {
     catch (std::string exceptionMessage) {
 		std::cout << exceptionMessage << std::endl;
 	}
+}
+
+void    AForm::execute(Bureaucrat const & executor) {
+    if (this->_signed == false)
+        throw AForm::FormNotSignedException();
+    else if (executor.getGrade() > _execute_grade)
+        throw AForm::GradeTooLowException();
 }
 
 std::ostream& operator<<(std::ostream& out, const AForm& aForm) {

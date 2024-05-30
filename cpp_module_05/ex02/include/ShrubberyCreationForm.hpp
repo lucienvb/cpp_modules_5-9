@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <exception>
+#include <fstream>
 
 #include "AForm.hpp"
 
@@ -19,7 +20,12 @@ public:
 	ShrubberyCreationForm& operator=(const ShrubberyCreationForm &other);
 	~ShrubberyCreationForm();
 
-	void execute();
+	void execute(Bureaucrat const & executor);
+
+	class OutfileNotOpenExeption : public std::exception {
+        public:
+            virtual const char* what() const throw();
+    };
 };
 
 #endif

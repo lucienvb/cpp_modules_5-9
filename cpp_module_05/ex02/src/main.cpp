@@ -12,10 +12,11 @@
 // }
 
 int main() {
-    AForm aform("tree", 146, 138);
     ShrubberyCreationForm form("tree");
     Bureaucrat bur;
     form.beSigned(bur);
+    form.execute(bur);
+
 
     // AForm important("important", 1, 1);
     // Bureaucrat  bur("bur", 2);

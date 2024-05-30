@@ -30,11 +30,19 @@ public:
 
 	void    beSigned(const Bureaucrat &other);
 
+	void	execute(Bureaucrat const & executor);
+
 	class GradeTooHighException : public std::exception {
         public:
             virtual const char* what() const throw();
     };
+
     class GradeTooLowException : public std::exception {
+        public:
+            virtual const char* what() const throw();
+    };
+
+	class FormNotSignedException : public std::exception {
         public:
             virtual const char* what() const throw();
     };

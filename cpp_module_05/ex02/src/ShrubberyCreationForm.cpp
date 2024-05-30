@@ -17,11 +17,19 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {
     std::cout << "Destructor ShrubberyCreationForm called" << std::endl;
 }
 
-void    ShrubberyCreationForm::execute() {
-    
-    std::cout << "   /\\" << std::endl;
-    std::cout << "  / /\\" << std::endl;
-    std::cout << " /\\  \\" << std::endl;
-    std::cout << "/\\   /\\" << std::endl;
+const char* ShrubberyCreationForm::OutfileNotOpenExeption::what() const throw() {
+	return ("Exception thrown! Outfile is not open.");
+}
+
+void    ShrubberyCreationForm::execute(Bureaucrat const & executor) {
+    AForm::execute(executor);
+    std::string filename = _target + "_shrubbery";
+    std::ofstream outfile(filename.c_str());
+    if (!outfile)
+        throw ShrubberyCreationForm::OutfileNotOpenExeption();
+    outfile << "   /\\" << std::endl;
+    outfile << "  / /\\" << std::endl;
+    outfile << " /\\   \\" << std::endl;
+    outfile << "/\\    /\\" << std::endl;
 }
 
