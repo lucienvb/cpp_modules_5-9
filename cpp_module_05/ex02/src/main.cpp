@@ -1,32 +1,47 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
-
-// void    testBeSigned(Bureaucrat &other, AForm &aForm) {
-//     try {
-//         aForm.beSigned(other);
-//     }
-//     catch (std::exception &e) {
-//          std::cout << e.what() << std::endl;
-//     }
-// }
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main() {
-    ShrubberyCreationForm form("tree");
-    Bureaucrat bur;
-    form.beSigned(bur);
-    form.execute(bur);
+    Bureaucrat lucien("lucien", 2);
+    Bureaucrat maurice("maurice", 73);
+    Bureaucrat jerome("jerome", 146);
 
+    ShrubberyCreationForm shrub("tree");
+    RobotomyRequestForm rob("robot");
+    PresidentialPardonForm pres("pres");
+    try {
+        lucien.executeForm(shrub);
+        lucien.signAForm(shrub);
+        Bureaucrat bur;
+        shrub.beSigned(bur);
+        shrub.execute(bur);
+        lucien.executeForm(rob);
+        lucien.executeForm(pres);
+    }
+    catch (const std::exception &e) {
+        std::cout << e.what() << std::endl;
+    }
 
-    // AForm important("important", 1, 1);
-    // Bureaucrat  bur("bur", 2);
-    // testBeSigned(bur, important);
-    // bur.signAForm(important);
-
-    // Bureaucrat  burea("burea", 1);
-    // testBeSigned(burea, important);
-    // burea.signAForm(important);
-
-    // std::cout << "\n>> burea's info <<\n" << burea << std::endl;
-    // std::cout << ">> important's info <<\n" << important << std::endl;
+    std::cout << "\n";
+    try {
+        maurice.executeForm(shrub);
+        maurice.executeForm(rob);
+        maurice.executeForm(pres);
+    }
+    catch (const std::exception &e) {
+        std::cout << e.what() << std::endl;
+    }
+    
+    std::cout << "\n";
+    try {
+        jerome.executeForm(shrub);
+        jerome.executeForm(rob);
+        jerome.executeForm(pres);
+    }
+    catch (const std::exception &e) {
+        std::cout << e.what() << std::endl;
+    }
 }

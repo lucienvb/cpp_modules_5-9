@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
 
 Bureaucrat::Bureaucrat(): _name("Lucien") {
     std::cout << "Constructor Bureaucrat called" << std::endl;
@@ -89,4 +90,15 @@ std::ostream& operator<<(std::ostream& out, const Bureaucrat& bureaucrat) {
 	out << "name: " << bureaucrat.getName() <<
 	"\ngrade: " << bureaucrat.getGrade() << std::endl;
 	return out;
+}
+
+void	Bureaucrat::executeForm(AForm &form) const {
+	try {
+		form.execute(*this);
+		std::cout << _name << " executed " << form.getName() << std::endl;
+	}
+	catch (const std::exception &e) {
+		std::cout << _name << " not able to exexute form." << std::endl;
+		std::cout << e.what() << std::endl;
+	}
 }

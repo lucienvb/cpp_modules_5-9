@@ -30,7 +30,7 @@ public:
 
 	void    beSigned(const Bureaucrat &other);
 
-	void	execute(Bureaucrat const & executor);
+	void	execute(Bureaucrat const &executor);
 
 	class GradeTooHighException : public std::exception {
         public:
