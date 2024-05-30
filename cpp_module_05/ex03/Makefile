@@ -2,7 +2,7 @@ include makerc/colors.mk
 
 ################################################################################
 
-NAME			:= aform
+NAME			:= intern
 BUILD_DIR		:= build
 INCLUDE_DIR		:= include
 RM				:= rm -rvf
@@ -12,7 +12,8 @@ HEADERS			= \
 	$(INCLUDE_DIR)/AFrom.hpp \
 	$(INCLUDE_DIR)/ShrubberyCreationForm.hpp \
 	$(INCLUDE_DIR)/RobotomyRequestForm.hpp \
-	$(INCLUDE_DIR)/PresidentialPardonForm.hpp
+	$(INCLUDE_DIR)/PresidentialPardonForm.hpp \
+	$(INCLUDE_DIR)/Intern.hpp
 
 CC				= c++
 
@@ -39,7 +40,8 @@ SRC = \
   src/AForm.cpp \
   src/ShrubberyCreationForm.cpp \
   src/RobotomyRequestForm.cpp \
-  src/PresidentialPardonForm.cpp
+  src/PresidentialPardonForm.cpp \
+  src/Intern.cpp
 
 ################################################################################
 
