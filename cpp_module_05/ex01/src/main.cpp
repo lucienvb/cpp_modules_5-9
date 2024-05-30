@@ -23,4 +23,5 @@ int main() {
 
     std::cout << "\n>> burea's info <<\n" << burea << std::endl;
     std::cout << ">> important's info <<\n" << important << std::endl;
+
 }

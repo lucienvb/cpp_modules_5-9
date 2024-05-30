@@ -4,7 +4,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(std::string const &target): AForm("
     std::cout << "Constructor ShrubberyCreationForm called" << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &other): AForm(other.getName(), other.getSignGrade(), other.getExecuteGrade(), _target(other._target)) {
+ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &other): AForm(other.getName(), other.getSignGrade(), other.getExecuteGrade()), _target(other._target) {
     std::cout << "Copy constructor ShrubberyCreationForm called" << std::endl;
 }
 
@@ -15,5 +15,13 @@ ShrubberyCreationForm&   ShrubberyCreationForm::operator=(const ShrubberyCreatio
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {
     std::cout << "Destructor ShrubberyCreationForm called" << std::endl;
+}
+
+void    ShrubberyCreationForm::execute() {
+    
+    std::cout << "   /\\" << std::endl;
+    std::cout << "  / /\\" << std::endl;
+    std::cout << " /\\  \\" << std::endl;
+    std::cout << "/\\   /\\" << std::endl;
 }
 

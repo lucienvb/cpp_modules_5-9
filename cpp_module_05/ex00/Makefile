@@ -2,7 +2,7 @@ include makerc/colors.mk
 
 ################################################################################
 
-NAME			:= bureaucrat
+NAME			:= bur
 BUILD_DIR		:= build
 INCLUDE_DIR		:= include
 RM				:= rm -rvf

@@ -42,5 +42,6 @@ int main() {
     Bureaucrat maurice("maurice", 1);
     testIncrement(maurice);
 
-    std::cout << "\n>> burea's info <<\n" << burea << std::endl;
+    std::cout << "\n>> burea's info <<\n" << lucien << std::endl;
+    std::cout << "\n>> burea's info <<\n" << maurice << std::endl;
 }
