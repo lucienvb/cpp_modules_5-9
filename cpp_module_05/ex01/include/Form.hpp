@@ -25,8 +25,8 @@ public:
 
 	const std::string 	getName() const;
 	bool	 			getSigned() const;
-	int 			getSignGrade() const;
-	int 			getExecuteGrade() const;
+	int 				getSignGrade() const;
+	int 				getExecuteGrade() const;
 
 	void    beSigned(const Bureaucrat &other);
 
@@ -34,6 +34,7 @@ public:
         public:
             virtual const char* what() const throw();
     };
+
     class GradeTooLowException : public std::exception {
         public:
             virtual const char* what() const throw();

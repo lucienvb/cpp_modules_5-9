@@ -23,10 +23,12 @@ const char* ShrubberyCreationForm::OutfileNotOpenExeption::what() const throw() 
 
 void    ShrubberyCreationForm::execute(Bureaucrat const & executor) {
     AForm::execute(executor);
+    
     std::string filename = _target + "_shrubbery";
     std::ofstream outfile(filename.c_str());
     if (!outfile)
         throw ShrubberyCreationForm::OutfileNotOpenExeption();
+
     outfile << "   /\\" << std::endl;
     outfile << "  / /\\" << std::endl;
     outfile << " /\\   \\" << std::endl;

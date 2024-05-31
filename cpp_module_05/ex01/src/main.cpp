@@ -11,17 +11,25 @@ void    testBeSigned(Bureaucrat &other, Form &form) {
 }
 
 int main() {
+    {
+        Form success("success", 3, 1);
+        Bureaucrat  bur("bur", 1);
 
-    Form important("important", 1, 1);
-    Bureaucrat  bur("bur", 2);
-    testBeSigned(bur, important);
-    bur.signForm(important);
+        std::cout << "\n>> bur's info <<\n" << bur << std::endl;
+        std::cout << ">> success's info <<\n" << success << std::endl;
 
-    Bureaucrat  burea("burea", 1);
-    testBeSigned(burea, important);
-    burea.signForm(important);
+        testBeSigned(bur, success);
+        bur.signForm(success);
+    }
+    std::cout << "\n----------------------------------------\n" << std::endl;
+    {
+        Form failure("failure", 60, 1);
+        Bureaucrat  burea("burea", 70);
 
-    std::cout << "\n>> burea's info <<\n" << burea << std::endl;
-    std::cout << ">> important's info <<\n" << important << std::endl;
+        std::cout << "\n>> burea's info <<\n" << burea << std::endl;
+        std::cout << ">> failure's info <<\n" << failure << std::endl;
 
+        testBeSigned(burea, failure);
+        burea.signForm(failure);
+    }
 }

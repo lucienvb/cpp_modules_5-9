@@ -19,6 +19,7 @@ public:
 
     const std::string 	getName() const;
     int    		      	getGrade() const;
+
 	void				increment();
 	void				decrement();
 
@@ -26,11 +27,11 @@ public:
         public:
             virtual const char* what() const throw();
     };
+
     class GradeTooLowException : public std::exception {
         public:
             virtual const char* what() const throw();
     };
-
 };
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& bureaucrat);

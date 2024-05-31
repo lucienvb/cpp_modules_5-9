@@ -5,59 +5,68 @@
 #include "PresidentialPardonForm.hpp"
 
 void	testShrub(){
-	std::cout << "* test ShruberyCreationForm *" << std::endl <<std::endl;
+	std::cout << "TEST SHRUBBERY CREATION FORM\n" << std::endl;
 	try{
-		Bureaucrat lucien("lucien", 1);
-		ShrubberyCreationForm form("ShrubShrub");
+		Bureaucrat lucien("lucien", 144);
+		ShrubberyCreationForm form("shrub form");
+		form.beSigned(lucien);
 		form.execute(lucien);
 	}
 	catch(const std::exception& e){
 		std::cerr << e.what() << std::endl;
 	}
-	std::cout << std::endl;
 }
 
 void	testRob(){
-	std::cout << "* test RobotomyRequest *" << std::endl;
-	try{
-		Bureaucrat maurice("maurice", 71);
-		RobotomyRequestForm form("form");
-		for (int i = 0; i < 5; i++){
-			form.execute(maurice);
-			std::cout << std::endl;
-		}
+	std::cout << "TEST ROBOTOMY REQUEST FORM\n" << std::endl;
+	try {
+		Bureaucrat maurice("maurice", 46);
+		RobotomyRequestForm form("rob form");
+
+		form.beSigned(maurice);
+		form.execute(maurice);
+		std::cout << std::endl;
 	}
-	catch(const std::exception& e){
+	catch (const std::exception& e) {
 		std::cerr << e.what() << std::endl;
-		}
-	std::cout << std::endl;
+	}
 }
 
 void	testPres(void){
-	std::cout << "* test PresidentialPardonForm *" << std::endl;
+	std::cout << "TEST PRESIDENTIAL PARDON FORM\n" << std::endl;
 
-	try{
-	PresidentialPardonForm form("''Form of Pardon''" );
-	Bureaucrat jerome("jerome", 151);
-	form.execute(jerome);
-	std::cout << std::endl;
+	try {
+		PresidentialPardonForm form("pres form" );
+		Bureaucrat jerome("jerome", 6);
+		form.beSigned(jerome);
+		form.execute(jerome);
+		std::cout << std::endl;
 	}
 	catch(const std::exception& e){
 		std::cerr << e.what() << std::endl;
 	}
-	std::cout << std::endl;
-
-	Bureaucrat ghislaine("ghislaine", 4);
-	PresidentialPardonForm pardon_form("''Form of Pardon''" );
-	ghislaine.executeForm(pardon_form);
-	std::cout << std::endl;
 }
 
 int	main(void){
-	testPres();
-	std::cout << "\n";
-	testRob();
-	std::cout << "\n";
-	testShrub();
+	{
+		testShrub();
+	}
+	std::cout << "\n----------------------------------------\n" << std::endl;
+	{
+		testRob();
+	}
+	std::cout << "\n----------------------------------------\n" << std::endl;
+	{
+		testPres();
+	}
+
+	std::cout << "\n>> test executeForm <<\n" << std::endl;
+
+	Bureaucrat ghislaine("ghislaine", 6);
+	PresidentialPardonForm pardon_form("pres form" );
+	pardon_form.beSigned(ghislaine);
+	ghislaine.executeForm(pardon_form);
+	std::cout << std::endl;
+
 	return 0;
 }

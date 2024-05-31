@@ -15,8 +15,8 @@ Bureaucrat::Bureaucrat(const std::string name, int grade): _name(name) {
 			throw Bureaucrat::GradeTooLowException();	
 		_grade = grade;
 	}
-	catch (std::string exceptionMessage) {
-		std::cout << exceptionMessage << std::endl;
+	catch (std::exception &e) {
+		std::cout << e.what() << std::endl;
 	}
 }
 
@@ -51,8 +51,8 @@ void Bureaucrat::increment() {
 		_grade -= 1;
 		std::cout << _name << ", bureaucrat grade " << _grade << std::endl;
 	}
-	catch (std::string exceptionMessage) {
-		std::cout << exceptionMessage << std::endl;
+	catch (std::exception &e) {
+		std::cout << e.what() << std::endl;
 	}
 }
 
@@ -63,8 +63,8 @@ void Bureaucrat::decrement() {
 		_grade += 1;
 		std::cout << _name << ", bureaucrat grade " << _grade << std::endl;
 	}
-	catch (std::string exceptionMessage) {
-		std::cout << exceptionMessage << std::endl;
+	catch (std::exception &e) {
+		std::cout << e.what() << std::endl;
 	}
 }
 

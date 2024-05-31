@@ -28,20 +28,24 @@ void    testCreate(const std::string name, int grade) {
 }
 
 int main() {
-
-    testCreate("Lucien", 0);
-    testCreate("Lucien", 151);
-    testCreate("Lucien", 1);
-    testCreate("Lucien", 150);
-
-    std::cout << "\n";
-
-    Bureaucrat lucien("Lucien", 150);
-    testDecrement(lucien);
-
-    Bureaucrat maurice("maurice", 1);
-    testIncrement(maurice);
-
-    std::cout << "\n>> burea's info <<\n" << lucien << std::endl;
-    std::cout << "\n>> burea's info <<\n" << maurice << std::endl;
+    {
+        testCreate("Lucien", 0);
+        testCreate("Lucien", 151);
+        testCreate("Lucien", 1);
+        testCreate("Lucien", 150);
+    }
+    std::cout << "\n----------------------------------------\n" << std::endl;
+    {
+        Bureaucrat lucien("Lucien", 149);
+        std::cout << "\n>> burea's info <<\n" << lucien << std::endl;
+        testDecrement(lucien);
+        testDecrement(lucien);
+    }
+    std::cout << "\n----------------------------------------\n" << std::endl;
+    {
+        Bureaucrat maurice("maurice", 2);
+        std::cout << "\n>> burea's info <<\n" << maurice << std::endl;
+        testIncrement(maurice);
+        testIncrement(maurice);
+    }
 }

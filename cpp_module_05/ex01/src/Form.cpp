@@ -52,15 +52,10 @@ const char* Form::GradeTooLowException::what() const throw() {
 }
 
 void    Form::beSigned(const Bureaucrat &other) {
-    try {
-        if (other.getGrade() > _sign_grade)
-            throw Form::GradeTooLowException();
-        else
-            _signed = true;
-    }
-    catch (std::string exceptionMessage) {
-		std::cout << exceptionMessage << std::endl;
-	}
+    if (other.getGrade() > _sign_grade)
+        throw Form::GradeTooLowException();
+    else
+        _signed = true;
 }
 
 std::ostream& operator<<(std::ostream& out, const Form& form) {

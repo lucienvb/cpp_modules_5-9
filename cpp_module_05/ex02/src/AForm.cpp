@@ -56,15 +56,10 @@ const char* AForm::FormNotSignedException::what() const throw() {
 }
 
 void    AForm::beSigned(const Bureaucrat &other) {
-    try {
-        if (other.getGrade() > _sign_grade)
-            throw AForm::GradeTooLowException();
-        else
-            _signed = true;
-    }
-    catch (std::string exceptionMessage) {
-		std::cout << exceptionMessage << std::endl;
-	}
+    if (other.getGrade() > _sign_grade)
+        throw AForm::GradeTooLowException();
+    else
+        _signed = true;
 }
 
 void    AForm::execute(Bureaucrat const & executor) {

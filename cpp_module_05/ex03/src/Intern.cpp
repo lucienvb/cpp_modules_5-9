@@ -36,10 +36,8 @@ const char* Intern::FormNotFoundException::what() const throw() {
 }
 
 AForm *Intern::makeForm(const std::string &name, const std::string &target) {
-    std::cout << name << std::endl;
-    std::cout << target << std::endl;
 
-    std::string forms[3] = {"shubbery request", "robotomy request", "presidential request"};
+    std::string forms[3] = {"shrubbery request", "robotomy request", "presidential request"};
     
     AForm *(Intern::*create[3])(const std::string &) = {
         &Intern::makeShrubberyCreationForm, 
