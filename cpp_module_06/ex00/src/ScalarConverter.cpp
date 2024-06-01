@@ -80,41 +80,52 @@ void ScalarConverter::printPseudoDouble(std::string str)
 	std::cout << "double: " << str << std::endl;
 }
 
-// template <typename T> void	ScalarConverter::printChar(T c) {
-// 	return static_cast<char>(c);
-// }
+template <typename T> void	ScalarConverter::printConversions(T conv) {
+	std::cout << "char: ";
+	printChar(conv);
+	std::cout << "\nint: ";
+	printInt(conv);
+	std::cout << "\nfloat: ";
+	printFloat(conv);
+	std::cout << "\ndouble: ";
+	printDouble(conv);
+}
+
+template <typename T> void	ScalarConverter::printChar(T c) {
+	std::cout << c;
+}
+
+template <typename T> void	ScalarConverter::printInt(T i) {
+	std::cout << i;
+}
+
+template <typename T> void	ScalarConverter::printFloat(T f) {
+	std::cout << f;
+}
+
+template <typename T> void	ScalarConverter::printDouble(T d) {
+	std::cout << d << "\n" << std::endl;
+}
 
 void ScalarConverter::convert(std::string str) {
 
-    std::cout << "str: " << str << std::endl;
-
 	ScalarType type = checkType(str);
-
-    std::cout << "Type: " << type << std::endl;
 
 	switch (type) {
 		case PSEUDO_FLOAT:
 			printPseudoFloat(str);
 		case PSEUDO_DOUBLE:
 			printPseudoDouble(str);
-		// case CHAR:
-			// printChar(str[0]);
-
-
-
-		default:
+		case CHAR:
+			printConversions(static_cast<char>(str[0]));
+		case INT:
+			printConversions(static_cast<int>(std::stoi(str)));
+		case FLOAT:
+			printConversions(static_cast<float>(std::stof(str)));
+		case DOUBLE:
+			printConversions(static_cast<double>(std::stod(str)));
+		case UNKNOWN:
 			printImpossible();
 	}
 	
-
-    // int num = std::stoi(str);
-
-    // int i = static_cast<int>(num);
-    // std::cout << "i with " << typeid(i).name() << ": " << i << std::endl;
-
-    // char c = static_cast<char>(num);
-    // std::cout << "c with " << typeid(c).name() << ": " << c << std::endl;
-
-    // float f = static_cast<float>(num);
-    // std::cout << "f with " << typeid(f).name() << ": " << f << std::endl;
 }

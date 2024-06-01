@@ -29,7 +29,12 @@ public:
 	static void 	printPseudoFloat(std::string str);
 	static void 	printPseudoDouble(std::string str);
 
-	// template <typename T> static void	printChar(T c);
+	template <typename T> static void	printConversions(T c);
+	
+	template <typename T> static void	printChar(T c);
+	template <typename T> static void	printInt(T i);
+	template <typename T> static void	printFloat(T f);
+	template <typename T> static void	printDouble(T d);
 
 };
 
