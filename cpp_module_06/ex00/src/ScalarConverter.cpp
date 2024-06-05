@@ -1,6 +1,7 @@
 #include "ScalarConverter.hpp"
 #include <typeinfo>
 #include <regex>
+#include <math.h>
 
 ScalarConverter::ScalarConverter() {
     std::cout << "Constructor ScalarConverter called" << std::endl;
@@ -84,15 +85,18 @@ template <typename T> void	ScalarConverter::printConversions(T conv) {
 	std::cout << "char: ";
 	printChar(conv);
 	std::cout << "\nint: ";
-	printInt(conv);
+	printInt(static_cast<int>(conv));
 	std::cout << "\nfloat: ";
-	printFloat(conv);
+	printFloat(static_cast<float>(conv));
 	std::cout << "\ndouble: ";
-	printDouble(conv);
+	printDouble(static_cast<double>(conv));
 }
 
 template <typename T> void	ScalarConverter::printChar(T c) {
-	std::cout << c;
+	if (c <= 31 || c >= 127)
+		std::cout << "Non displayable";
+	else
+		std::cout << static_cast<char>(c);
 }
 
 template <typename T> void	ScalarConverter::printInt(T i) {
@@ -101,10 +105,16 @@ template <typename T> void	ScalarConverter::printInt(T i) {
 
 template <typename T> void	ScalarConverter::printFloat(T f) {
 	std::cout << f;
+	if (fmodf(f, 1.0f) == 0)
+		std::cout << ".0";
+	std::cout << "f";
 }
 
 template <typename T> void	ScalarConverter::printDouble(T d) {
-	std::cout << d << "\n" << std::endl;
+	std::cout << d;
+	if (fmod(d, 1.0) == 0)
+		std::cout << ".0";
+	std::cout << "\n";
 }
 
 void ScalarConverter::convert(std::string str) {
@@ -114,18 +124,23 @@ void ScalarConverter::convert(std::string str) {
 	switch (type) {
 		case PSEUDO_FLOAT:
 			printPseudoFloat(str);
+			return ;
 		case PSEUDO_DOUBLE:
 			printPseudoDouble(str);
+			return ;
 		case CHAR:
-			printConversions(static_cast<char>(str[0]));
+			printConversions(str[0]);
+			return ;
 		case INT:
-			printConversions(static_cast<int>(std::stoi(str)));
+			printConversions(std::stoi(str));
+			return ;
 		case FLOAT:
-			printConversions(static_cast<float>(std::stof(str)));
+			printConversions(std::stof(str));
+			return ;
 		case DOUBLE:
-			printConversions(static_cast<double>(std::stod(str)));
+			printConversions(std::stod(str));
+			return ;
 		case UNKNOWN:
 			printImpossible();
 	}
-	
 }
