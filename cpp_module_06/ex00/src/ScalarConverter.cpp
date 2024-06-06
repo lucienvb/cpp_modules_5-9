@@ -2,6 +2,8 @@
 #include <typeinfo>
 #include <regex>
 #include <math.h>
+#include <limits.h>
+#include <float.h>
 
 ScalarConverter::ScalarConverter() {
     std::cout << "Constructor ScalarConverter called" << std::endl;
@@ -85,36 +87,53 @@ template <typename T> void	ScalarConverter::printConversions(T conv) {
 	std::cout << "char: ";
 	printChar(conv);
 	std::cout << "\nint: ";
-	printInt(static_cast<int>(conv));
+	printInt(conv);
 	std::cout << "\nfloat: ";
-	printFloat(static_cast<float>(conv));
+	printFloat(conv);
 	std::cout << "\ndouble: ";
-	printDouble(static_cast<double>(conv));
+	printDouble(conv);
 }
 
 template <typename T> void	ScalarConverter::printChar(T c) {
-	if (c <= 31 || c >= 127)
-		std::cout << "Non displayable";
+	if (std::isnan(c) || c < CHAR_MIN || c > CHAR_MAX)
+		std::cout << "impossible";
+	else if (std::isprint(static_cast<char>(c)))
+		std::cout << "\'" << static_cast<char>(c) << "\'";
 	else
-		std::cout << static_cast<char>(c);
+		std::cout << "Non displayable";
 }
 
 template <typename T> void	ScalarConverter::printInt(T i) {
-	std::cout << i;
+	if (std::isnan(i) || 
+		static_cast<int>(i) == INT32_MIN || 
+		static_cast<int>(i) < INT32_MIN || 
+		static_cast<int>(i) > INT32_MAX
+		)
+		std::cout << "impossible";
+	else
+		std::cout << static_cast<int>(i);
 }
 
 template <typename T> void	ScalarConverter::printFloat(T f) {
-	std::cout << f;
-	if (fmodf(f, 1.0f) == 0)
-		std::cout << ".0";
-	std::cout << "f";
+	if (std::isnan(f) || f < FLT_MIN || f > FLT_MAX)
+		std::cout << "impossible";
+	else {
+		std::cout << static_cast<float>(f);
+		if (static_cast<float>(f) - static_cast<int>(f) == 0)
+			std::cout << ".0";
+		std::cout << "f";
+	}
 }
 
 template <typename T> void	ScalarConverter::printDouble(T d) {
-	std::cout << d;
-	if (fmod(d, 1.0) == 0)
-		std::cout << ".0";
-	std::cout << "\n";
+	if (std::isnan(d) || d < DBL_MIN || d > DBL_MAX)
+		std::cout << "impossible";
+	else {
+		std::cout << static_cast<double>(d);
+		if (static_cast<double>(d) - static_cast<int>(d) == 0)
+			std::cout << ".0";
+		std::cout << "\n";
+	}
 }
 
 void ScalarConverter::convert(std::string str) {
@@ -132,7 +151,12 @@ void ScalarConverter::convert(std::string str) {
 			printConversions(str[0]);
 			return ;
 		case INT:
-			printConversions(std::stoi(str));
+			try {
+				printConversions(std::stoi(str));
+			}
+			catch (std::exception &e) {
+				std::cout << "exeption throwed: " << e.what() << std::endl;
+			}
 			return ;
 		case FLOAT:
 			printConversions(std::stof(str));
