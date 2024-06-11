@@ -27,29 +27,15 @@ void identify(Base *p) {
 
 void identify(Base &p) {
     try {
-        (void)dynamic_cast<A &>(p);
-        std::cout << "Identified A on &p" << std::endl;
-        return ;
+        if (dynamic_cast<A *>(&p))
+            std::cout << "Identified A on &p" << std::endl;
+        else if (dynamic_cast<B *>(&p))
+            std::cout << "Identified B on &p" << std::endl;
+        else if (dynamic_cast<C *>(&p))
+            std::cout << "Identified C on &p" << std::endl;
     }
     catch (std::bad_cast &e) {
         std::cout << "exception thrown: " << e.what() << std::endl;
     }
-    try {
-        (void)dynamic_cast<B &>(p);
-        std::cout << "Identified B on &p" << std::endl;
-        return ;
-    }
-    catch (std::bad_cast &e) {
-        std::cout << "exception thrown: " << e.what() << std::endl;
-    }
-    try {
-        (void)dynamic_cast<C &>(p);
-        std::cout << "Identified C on &p" << std::endl;
-        return ;
-    }
-    catch (std::bad_cast &e) {
-        std::cout << "exception thrown: " << e.what() << std::endl;
-    }
-    std::cout << "Identifying failed" << std::endl;
 }
 
