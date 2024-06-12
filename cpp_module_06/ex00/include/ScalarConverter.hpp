@@ -16,10 +16,10 @@ enum ScalarType {
 
 class ScalarConverter {
 public:
-    ScalarConverter();
-    ScalarConverter(const ScalarConverter &other);
-    ScalarConverter& operator=(const ScalarConverter &other);
-    ~ScalarConverter();
+    ScalarConverter() = delete;
+    ScalarConverter(const ScalarConverter &other) = delete;
+    ScalarConverter& operator=(const ScalarConverter &other) = delete;
+    ~ScalarConverter() = delete;
 
     static void			convert(std::string str);
     static ScalarType	checkType(std::string str);
@@ -29,12 +29,12 @@ public:
 	static void 	printPseudoFloat(std::string str);
 	static void 	printPseudoDouble(std::string str);
 
-	template <typename T> static void	printConversions(T c);
+	template <typename T> static void	printConversions(const T &c);
 	
-	template <typename T> static void	printChar(T c);
-	template <typename T> static void	printInt(T i);
-	template <typename T> static void	printFloat(T f);
-	template <typename T> static void	printDouble(T d);
+	template <typename T> static void	printChar(const T &c);
+	template <typename T> static void	printInt(const T &i);
+	template <typename T> static void	printFloat(const T &f);
+	template <typename T> static void	printDouble(const T &d);
 
 };
 

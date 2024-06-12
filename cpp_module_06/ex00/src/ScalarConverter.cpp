@@ -5,25 +5,6 @@
 #include <limits.h>
 #include <float.h>
 
-ScalarConverter::ScalarConverter() {
-    std::cout << "Constructor ScalarConverter called" << std::endl;
-}
-
-ScalarConverter::ScalarConverter(const ScalarConverter &other) {
-    std::cout << "Copy constructor ScalarConverter called" << std::endl;
-    *this = other;
-}
-
-ScalarConverter& ScalarConverter::operator=(const ScalarConverter &other) {
-    std::cout << "Assignment operator ScalarConverter called" << std::endl;
-    (void)other;
-	return (*this);
-}
-
-ScalarConverter::~ScalarConverter() {
-    std::cout << "Destructor ScalarConverter called" << std::endl;
-}
-
 bool	ScalarConverter::isInt(std::string str) {
 	std::regex floatRegex("\\d+");
     return std::regex_match(str, floatRegex);
@@ -83,7 +64,7 @@ void ScalarConverter::printPseudoDouble(std::string str)
 	std::cout << "double: " << str << std::endl;
 }
 
-template <typename T> void	ScalarConverter::printConversions(T conv) {
+template <typename T> void	ScalarConverter::printConversions(const T &conv) {
 	std::cout << "char: ";
 	printChar(conv);
 	std::cout << "\nint: ";
@@ -94,7 +75,7 @@ template <typename T> void	ScalarConverter::printConversions(T conv) {
 	printDouble(conv);
 }
 
-template <typename T> void	ScalarConverter::printChar(T c) {
+template <typename T> void	ScalarConverter::printChar(const T &c) {
 	if (std::isnan(c) || c < CHAR_MIN || c > CHAR_MAX)
 		std::cout << "impossible";
 	else if (std::isprint(static_cast<char>(c)))
@@ -103,7 +84,7 @@ template <typename T> void	ScalarConverter::printChar(T c) {
 		std::cout << "Non displayable";
 }
 
-template <typename T> void	ScalarConverter::printInt(T i) {
+template <typename T> void	ScalarConverter::printInt(const T &i) {
 	if (std::isnan(i) || 
 		static_cast<int>(i) == INT32_MIN || 
 		static_cast<int>(i) < INT32_MIN || 
@@ -114,7 +95,7 @@ template <typename T> void	ScalarConverter::printInt(T i) {
 		std::cout << static_cast<int>(i);
 }
 
-template <typename T> void	ScalarConverter::printFloat(T f) {
+template <typename T> void	ScalarConverter::printFloat(const T &f) {
 	if (std::isnan(f) || f < FLT_MIN || f > FLT_MAX)
 		std::cout << "impossible";
 	else {
@@ -125,7 +106,7 @@ template <typename T> void	ScalarConverter::printFloat(T f) {
 	}
 }
 
-template <typename T> void	ScalarConverter::printDouble(T d) {
+template <typename T> void	ScalarConverter::printDouble(const T &d) {
 	if (std::isnan(d) || d < DBL_MIN || d > DBL_MAX)
 		std::cout << "impossible";
 	else {
