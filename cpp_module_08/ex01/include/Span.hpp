@@ -3,6 +3,7 @@
 
 #include <exception>
 #include <vector>
+#include <iterator>
 
 class SpanIsFullException: public std::exception {
     public:
@@ -24,8 +25,10 @@ public:
     ~Span();
 
     void addNumber(int number);
+    template<typename InputIterator>
+    void addNumbers(InputIterator begin, InputIterator end);
     int shortestSpan();
-    unsigned int    longestSpan();
+    int longestSpan();
 
 
 private:
