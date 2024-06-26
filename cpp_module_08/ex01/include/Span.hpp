@@ -30,6 +30,7 @@ class LimitException: public std::exception {
 
 class Span {
 public:
+    Span();
     Span(uint N);
     Span(const Span &obj);
     Span &operator=(const Span &obj);

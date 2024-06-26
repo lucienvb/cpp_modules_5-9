@@ -1,6 +1,8 @@
 #include "../include/Span.hpp"
 #include "limits"
 
+Span::Span() {}
+
 Span::Span(uint N): _max_size(N) {}
 
 Span::Span(const Span &obj){
