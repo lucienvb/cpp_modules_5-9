@@ -1,53 +1,50 @@
 #include "../include/Span.hpp"
-#include "limits.h"
+#include "limits"
 
-Span::Span(unsigned int N): _max_size(N) {}
+Span::Span(uint N): _max_size(N) {}
 
 Span::~Span() {}
 
-void    Span::addNumber(int number) {
+void    Span::addNumber(long long number) {
     if (_numbers.size() >= _max_size)
         throw SpanIsFullException();
     _numbers.push_back(number);
 }
 
-template<typename InputIterator>
-void    Span::addNumbers(InputIterator begin, InputIterator end) {
+void    Span::addNumbers(long long begin, long long end) {
     while (begin != end) {
         if (_numbers.size() >= _max_size) {
             throw SpanIsFullException();
         }
-        _numbers.push_back(*begin);
+        _numbers.push_back(begin);
         begin++;
     }
 }
 
-int    Span::shortestSpan() {
+long long    Span::shortestSpan() {
     if (_numbers.size() < 2)
         throw NoSpanFoundException();
-    int span = INT_MAX;
-    unsigned int size = _numbers.size();
-    for (unsigned int i = 0; i < size - 1; i++) {
-        for (unsigned int j = i + 1; j < size; j++) {
-            int current = _numbers[j] - _numbers[i];
-            if (current < span && current >= 0)
-                span = current;
+
+    std::vector<int> sortedNumbers = _numbers;
+    std::sort(sortedNumbers.begin(), sortedNumbers.end());
+    long long minSpan = std::numeric_limits<int>::max();
+    for (uint i = 0; i < sortedNumbers.size() - 1; i++) {
+        for (uint j = i + 1; j < sortedNumbers.size() - 1; j++) {
+            long long current = _numbers[j] - _numbers[i];
+            if (current < minSpan && current >= 0)
+                minSpan = current;
+
         }
     }
-    return span;
+    return minSpan;
 }
 
-int    Span::longestSpan() {
+long long    Span::longestSpan() {
     if (_numbers.size() < 2)
         throw NoSpanFoundException();
-    int span = 0;
-    unsigned int size = _numbers.size();
-    for (unsigned int i = 0; i < size - 1; i++) {
-        for (unsigned int j = i + 1; j < size; j++) {
-            int current = _numbers[j] - _numbers[i];
-            if (current > span && current <= INT_MAX)
-                span = current;
-        }
-    }
-    return span;
+
+    long long min = *std::min_element(_numbers.begin(), _numbers.end());
+    long long max = *std::max_element(_numbers.begin(), _numbers.end());
+
+    return max - min;
 }

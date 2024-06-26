@@ -1,8 +1,7 @@
 #include "../include/Span.hpp"
-#include <iostream>
 
 void test_with_ten_thousand_numbers() {
-    unsigned int limit = 10005;
+    uint limit = 10005;
     Span vec = Span(limit);
 
     // call shortestSpan and longestSpan with no numbers
@@ -33,7 +32,7 @@ void test_with_ten_thousand_numbers() {
         std::cout << e.what() << std::endl;
     }
     int current = 2;
-    for (unsigned int i = 0; i < limit - 1; i++) {
+    for (uint i = 0; i < limit - 1; i++) {
         current *= (current + i);
         if (current % 2 != 0 && current > 100000)
             current /= 1000;
@@ -45,32 +44,31 @@ void test_with_ten_thousand_numbers() {
     catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }
-    std::cout << "shorest span: " << vec.shortestSpan() << std::endl;
+    std::cout << "shortest span: " << vec.shortestSpan() << std::endl;
     std::cout << "longest span: " << vec.longestSpan() << std::endl;
 }
 
 void simple_test() {
-    unsigned int limit = 5;
+    uint limit = 5;
     Span vec = Span(limit);
 
     vec.addNumber(1);
-    vec.addNumber(33);
+    vec.addNumber(-2147483648);
     vec.addNumber(3);
+    vec.addNumber(2147483647);
     vec.addNumber(666);
-    vec.addNumber(100);
 
-    std::cout << "shorest span: " << vec.shortestSpan() << std::endl;
+    std::cout << "shortest span: " << vec.shortestSpan() << std::endl;
     std::cout << "longest span: " << vec.longestSpan() << std::endl;
 }
 
 void test_add_numbers() {
-    unsigned int limit = 10005;
+    uint limit = 10005;
     Span vec = Span(limit);
 
-    vec.addNumbers(0, 10005);
-    std::cout << "shorest span: " << vec.shortestSpan() << std::endl;
+    vec.addNumbers(0, limit);
+    std::cout << "shortest span: " << vec.shortestSpan() << std::endl;
     std::cout << "longest span: " << vec.longestSpan() << std::endl;
-
 }
 
 int main() {

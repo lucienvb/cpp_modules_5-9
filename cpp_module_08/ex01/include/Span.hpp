@@ -4,6 +4,8 @@
 #include <exception>
 #include <vector>
 #include <iterator>
+#include <algorithm>
+#include <iostream>
 
 class SpanIsFullException: public std::exception {
     public:
@@ -19,21 +21,27 @@ class NoSpanFoundException: public std::exception {
         }
 };
 
+class LimitException: public std::exception {
+    public:
+        virtual const char* what() const noexcept {
+            return ("Number exceeds limit");
+        }
+};
+
 class Span {
 public:
-    Span(unsigned int N);
+    Span(uint N);
     ~Span();
 
-    void addNumber(int number);
-    template<typename InputIterator>
-    void addNumbers(InputIterator begin, InputIterator end);
-    int shortestSpan();
-    int longestSpan();
+    void addNumber(long long number);
+    void addNumbers(long long begin, long long end);
+    long long shortestSpan();
+    long long longestSpan();
 
 
 private:
     std::vector<int>    _numbers;
-    unsigned int        _max_size;
+    uint        _max_size;
 
 };
 
