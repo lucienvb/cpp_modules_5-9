@@ -34,14 +34,13 @@ void test_str_array() {
     str_array[1] = "World";
     str_array[2] = "!";
     str_array[3] = ". . .";
-    str_array[4] = "?!";
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 4; i++) {
         std::cout << "str_array[" << i << "]: " << str_array[i] << std::endl;
     }
 
     try {
-        str_array[5] = "Out of bounds";
+        str_array[4] = "Out of bounds";
     }
     catch(std::exception &e)
     {
