@@ -3,6 +3,20 @@
 
 Span::Span(uint N): _max_size(N) {}
 
+Span::Span(const Span &obj){
+	if (this != &obj){
+		*this = obj;
+	}
+}
+
+Span& Span::operator=(const Span &obj){
+	if (this != &obj){
+		this->_max_size = obj._max_size;
+		this->_numbers = obj._numbers;
+	}
+	return (*this);
+}
+
 Span::~Span() {}
 
 void    Span::addNumber(long long number) {

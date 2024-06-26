@@ -31,6 +31,8 @@ class LimitException: public std::exception {
 class Span {
 public:
     Span(uint N);
+    Span(const Span &obj);
+    Span &operator=(const Span &obj);
     ~Span();
 
     void addNumber(long long number);
