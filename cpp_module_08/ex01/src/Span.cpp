@@ -41,16 +41,13 @@ long long    Span::shortestSpan() {
     if (_numbers.size() < 2)
         throw NoSpanFoundException();
 
-    std::vector<int> sortedNumbers = _numbers;
+    std::vector<long long> sortedNumbers = _numbers;
     std::sort(sortedNumbers.begin(), sortedNumbers.end());
-    long long minSpan = std::numeric_limits<int>::max();
-    for (uint i = 0; i < sortedNumbers.size() - 1; i++) {
-        for (uint j = i + 1; j < sortedNumbers.size() - 1; j++) {
-            long long current = _numbers[j] - _numbers[i];
-            if (current < minSpan && current >= 0)
+    long long minSpan = std::numeric_limits<long long>::max();
+    for (uint i = 0; i < sortedNumbers.size() - 1; ++i) {
+            long long current = sortedNumbers[i+1] - sortedNumbers[i];
+            if (current < minSpan)
                 minSpan = current;
-
-        }
     }
     return minSpan;
 }

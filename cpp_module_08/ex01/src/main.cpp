@@ -71,6 +71,16 @@ void test_add_numbers() {
     std::cout << "longest span: " << vec.longestSpan() << std::endl;
 }
 
+void test_negative() {
+    uint limit = 10005;
+    Span vec = Span(limit);
+
+    vec.addNumber(-999);
+    vec.addNumber(-5);
+    std::cout << "shortest span: " << vec.shortestSpan() << std::endl;
+    std::cout << "longest span: " << vec.longestSpan() << std::endl;
+}
+
 int main() {
     std::cout << ">> SIMPLE TEST <<" << std::endl;
     simple_test();
@@ -80,5 +90,9 @@ int main() {
     std::cout << "\n------------------------------------------------\n" << std::endl;
     std::cout << ">> TEST ADD NUMBERS <<" << std::endl;
     test_add_numbers();
+    std::cout << "\n------------------------------------------------\n" << std::endl;
+    std::cout << ">> TEST WITH ONLY NEGATIVE NUMBERS <<" << std::endl;
+    test_negative();
+    
     return 0;
 }

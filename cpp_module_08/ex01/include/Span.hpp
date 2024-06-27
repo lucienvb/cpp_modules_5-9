@@ -43,8 +43,8 @@ public:
 
 
 private:
-    std::vector<int>    _numbers;
-    uint        _max_size;
+    std::vector<long long>   _numbers;
+    uint                     _max_size;
 
 };
 
