@@ -8,10 +8,8 @@ int main(int argc, char **argv) {
     std::cout << "Input file: " << argv[1] << std::endl;
 
     BitcoinExchange btc;
-    btc.parseInputFile(argv[1]);
-    btc.printMap();
+    btc.parseData();
+    btc.getResults(argv[1]);
 
-    
-    // BitcoinExchange bit;
     return 0;
 }

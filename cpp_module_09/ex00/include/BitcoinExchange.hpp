@@ -15,9 +15,12 @@ public:
     BitcoinExchange &operator=(const BitcoinExchange &obj);
     ~BitcoinExchange();
 
-    void parseInputFile(std::string str);
-    void addData(std::string date, double currency);
+    void parseData();
+    void getResults(std::string str);
+    void addKeyPair(std::string date, double currency);
     void printMap();
+    bool isValidDate(std::string date);
+    bool isValidDay(int month, int day);
 
     class WrongFormatException: public std::exception {
     public:
