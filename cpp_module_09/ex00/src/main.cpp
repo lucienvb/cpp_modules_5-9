@@ -9,7 +9,9 @@ int main(int argc, char **argv) {
 
     BitcoinExchange btc;
     btc.parseInputFile(argv[1]);
+    btc.printMap();
 
+    
     // BitcoinExchange bit;
     return 0;
 }
