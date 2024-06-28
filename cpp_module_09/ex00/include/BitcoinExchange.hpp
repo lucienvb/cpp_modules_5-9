@@ -22,6 +22,8 @@ public:
     bool isValidDay(int month, int day);
     bool getCurrency(std::string date, double &refCurrency);
     int getLastDayOfMonth(int month);
+    void decreaseDate(std::string &refDate);
+
 
     class WrongFormatException: public std::exception {
     public:

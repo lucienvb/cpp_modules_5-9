@@ -101,7 +101,7 @@ bool	BitcoinExchange::isValidDate(std::string date) {
 	return (true);
 }
 
-void	decreaseDate(std::string &refDate) {
+void	BitcoinExchange::decreaseDate(std::string &refDate) {
 	int day = stoi(refDate.substr(8, 10)) - 1;
 	int month = stoi(refDate.substr(5, 7));
 	int year = stoi(refDate.substr(0, 4));
@@ -114,8 +114,11 @@ void	decreaseDate(std::string &refDate) {
 				return ;
 			}
 			month = 12;
-			// day = getLastDayOfMonth(month);
-			day = 31;
+			day = getLastDayOfMonth(month);
+			if (day == -1) {
+				refDate = "";
+				return ;
+			}
 		}
 	}
 	std::string dayAddZero = "";
