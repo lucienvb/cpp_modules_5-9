@@ -1,5 +1,6 @@
 #include "BitcoinExchange.hpp"
 #include <regex>
+#include <algorithm>
 
 BitcoinExchange::BitcoinExchange(): map({}) {}
 
@@ -26,11 +27,6 @@ bool isValidFormat(const std::string& str) {
 
 void	BitcoinExchange::addKeyPair(std::string date, double currency) {
 	map[date] = currency;
-}
-
-void	BitcoinExchange::printMap() {
-	for (auto x: map)
-		std::cout << x.first << " -> " << x.second << std::endl;
 }
 
 void	BitcoinExchange::parseData() {
@@ -104,7 +100,48 @@ bool	BitcoinExchange::isValidDay(int month, int day) {
 			break;
 	}
 	return true;
+}
 
+int	BitcoinExchange::getLastDayOfMonth(int month) {
+	switch (month) {
+		case 1:
+			return 31;
+			break ;
+		case 2:
+			return 29;
+			break;
+		case 3:
+			return 31;
+			break;
+		case 4:
+			return 30;
+			break;
+		case 5:
+			return 31;
+			break;
+		case 6:
+			return 30;
+			break;
+		case 7:
+			return 31;
+			break;
+		case 8:
+			return 31;
+			break;
+		case 9:
+			return 30;
+			break;
+		case 10:
+			return 31;
+			break;
+		case 11:
+			return 30;
+			break;
+		case 12:
+			return 31;
+			break;
+	}
+	return -1;
 }
 
 bool	BitcoinExchange::isValidDate(std::string date) {
@@ -127,11 +164,31 @@ bool	BitcoinExchange::isValidDate(std::string date) {
 	return (true);
 }
 
+void	decreaseDate(std::string &refDate) {
+	
+}
+
+bool	BitcoinExchange::getCurrency(std::string date, double &refCurrency) {
+	std::string &refDate = date;
+	
+	if (map.find(refDate) != std::end(map))
+		refCurrency = map[refDate];
+	else
+		refCurrency = -1;
+	std::cout << "refCurrency: " << refCurrency << std::endl;
+
+
+
+	return true;
+}
+
 void	BitcoinExchange::getResults(std::string str) {
 
 	try {
 		std::ifstream infile(str);
 		bool first = true;
+		double currency = -1;
+		double &refCurrency = currency;
 		for (std::string line; std::getline(infile, line);) {
 			if (first) {
 				if (line.compare("date | value") != 0)
@@ -148,8 +205,11 @@ void	BitcoinExchange::getResults(std::string str) {
 						std::cout << "Error: too large a number." << std::endl;
 					else if (!isValidDate(date))
 						std::cout << "Error: bad input => " << date << std::endl;
+					else if (getCurrency(date, refCurrency))
+						std::cout << date << " => " << number << " = " << number * refCurrency << std::endl;
+						// std::cout << date << " => " << number << " = " << number * map[date] << std::endl;
 					else
-						std::cout << date << " => " << number << " = " << number * map[date] << std::endl;
+						std::cout << "Error: current date and lower dates not found." << std::endl;
 				}
 			}
 		}

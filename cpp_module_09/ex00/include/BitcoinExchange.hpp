@@ -18,21 +18,15 @@ public:
     void parseData();
     void getResults(std::string str);
     void addKeyPair(std::string date, double currency);
-    void printMap();
     bool isValidDate(std::string date);
     bool isValidDay(int month, int day);
+    bool getCurrency(std::string date, double &refCurrency);
+    int getLastDayOfMonth(int month);
 
     class WrongFormatException: public std::exception {
     public:
         virtual const char* what() const noexcept {
             return ("Wrong format of the input file");
-        }
-    };
-
-    class InvalidDateException: public std::exception {
-    public:
-        virtual const char* what() const noexcept {
-            return ("The date is invalid");
         }
     };
 
