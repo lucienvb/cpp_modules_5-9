@@ -2,7 +2,7 @@
 #include <regex>
 #include <algorithm>
 
-BitcoinExchange::BitcoinExchange(): map({}) {}
+BitcoinExchange::BitcoinExchange(): _map({}) {}
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &obj){
 	if (this != &obj){
@@ -12,7 +12,7 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &obj){
 
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange &obj){
 	if (this != &obj){
-		// this->_max_size = obj._max_size;
+		this->_map = obj._map;
 	}
 	return (*this);
 }
@@ -26,7 +26,7 @@ bool isValidFormat(const std::string& str) {
 }
 
 void	BitcoinExchange::addKeyPair(std::string date, double currency) {
-	map[date] = currency;
+	_map[date] = currency;
 }
 
 void	BitcoinExchange::parseData() {
@@ -50,114 +50,51 @@ void	BitcoinExchange::parseData() {
 
 bool	BitcoinExchange::isValidDay(int month, int day) {
 	switch (month) {
-		case 1:
-			if (day > 31)
-				return false;
-			break ;
-		case 2:
-			if (day > 29)
-				return false;
-			break;
-		case 3:
-			if (day > 31)
-				return false;
-			break;
-		case 4:
-			if (day > 30)
-				return false;
-			break;
-		case 5:
-			if (day > 31)
-				return false;
-			break;
-		case 6:
-			if (day > 30)
-				return false;
-			break;
-		case 7:
-			if (day > 31)
-				return false;
-			break;
-		case 8:
-			if (day > 31)
-				return false;
-			break;
-		case 9:
-			if (day > 30)
-				return false;
-			break;
-		case 10:
-			if (day > 31)
-				return false;
-			break;
-		case 11:
-			if (day > 30)
-				return false;
-			break;
-		case 12:
-			if (day > 31)
-				return false;
-			break;
+		case 1: if (day > 31) return false;
+		case 2: if (day > 29) return false;
+		case 3:	if (day > 31) return false;
+		case 4: if (day > 30) return false;
+		case 5:	if (day > 31) return false;
+		case 6:	if (day > 30) return false;
+		case 7:	if (day > 31) return false;
+		case 8:	if (day > 31) return false;
+		case 9: if (day > 30) return false;
+		case 10: if (day > 31) return false;
+		case 11: if (day > 30) return false;
+		case 12: if (day > 31) return false;
+		default: return true;
 	}
-	return true;
 }
 
 int	BitcoinExchange::getLastDayOfMonth(int month) {
 	switch (month) {
-		case 1:
-			return 31;
-			break ;
-		case 2:
-			return 29;
-			break;
-		case 3:
-			return 31;
-			break;
-		case 4:
-			return 30;
-			break;
-		case 5:
-			return 31;
-			break;
-		case 6:
-			return 30;
-			break;
-		case 7:
-			return 31;
-			break;
-		case 8:
-			return 31;
-			break;
-		case 9:
-			return 30;
-			break;
-		case 10:
-			return 31;
-			break;
-		case 11:
-			return 30;
-			break;
-		case 12:
-			return 31;
-			break;
-	}
-	return -1;
+        case 1: return 31;
+        case 2: return 29;
+        case 3: return 31;
+        case 4: return 30;
+        case 5: return 31;
+        case 6: return 30;
+        case 7: return 31;
+        case 8: return 31;
+        case 9: return 30;
+        case 10: return 31;
+        case 11: return 30;
+        case 12: return 31;
+        default: return -1;
+    }
 }
 
 bool	BitcoinExchange::isValidDate(std::string date) {
 
 	int year = stoi(date.substr(0, 4));
-	// std::cout << "year " << year << std::endl;
 	if (year > 2022)
 		return false;
 
 	int month = stoi(date.substr(5, 7));
-	// std::cout << "month " << month << std::endl;
 	if (month > 12)
 		return false;
 
 	int day = stoi(date.substr(8, 10));
-	// std::cout << "day " << day << std::endl;
 	if (!isValidDay(month, day))
 		return false;
 
@@ -165,21 +102,46 @@ bool	BitcoinExchange::isValidDate(std::string date) {
 }
 
 void	decreaseDate(std::string &refDate) {
-	
+	int day = stoi(refDate.substr(8, 10)) - 1;
+	int month = stoi(refDate.substr(5, 7));
+	int year = stoi(refDate.substr(0, 4));
+	if (day <= 0) {
+		month--;
+		if (month <= 0) {
+			year--;
+			if (year < 2009) {
+				refDate = "";
+				return ;
+			}
+			month = 12;
+			// day = getLastDayOfMonth(month);
+			day = 31;
+		}
+	}
+	std::string dayAddZero = "";
+	if (day < 10)
+		dayAddZero = "0";
+	std::string monthAddZero = "";
+	if (month < 10)
+		monthAddZero = "0";
+	refDate = std::to_string(year) + '-' + monthAddZero + std::to_string(month) + '-' + dayAddZero + std::to_string(day);
 }
 
 bool	BitcoinExchange::getCurrency(std::string date, double &refCurrency) {
-	std::string &refDate = date;
-	
-	if (map.find(refDate) != std::end(map))
-		refCurrency = map[refDate];
-	else
-		refCurrency = -1;
-	std::cout << "refCurrency: " << refCurrency << std::endl;
-
-
-
-	return true;
+	try {
+		std::string &refDate = date;
+		
+		while (refDate != "") {
+			if (_map.find(refDate) != std::end(_map)) {
+				refCurrency = _map[refDate];
+				return true;
+			}
+			decreaseDate(refDate);
+		}
+		return false;
+	}
+	catch (std::exception &e) {}
+	return false;
 }
 
 void	BitcoinExchange::getResults(std::string str) {
@@ -207,7 +169,6 @@ void	BitcoinExchange::getResults(std::string str) {
 						std::cout << "Error: bad input => " << date << std::endl;
 					else if (getCurrency(date, refCurrency))
 						std::cout << date << " => " << number << " = " << number * refCurrency << std::endl;
-						// std::cout << date << " => " << number << " = " << number * map[date] << std::endl;
 					else
 						std::cout << "Error: current date and lower dates not found." << std::endl;
 				}

@@ -31,7 +31,7 @@ public:
     };
 
 private:
-    std::map<std::string, double> map;
+    std::map<std::string, double> _map;
 };
 
 #endif
