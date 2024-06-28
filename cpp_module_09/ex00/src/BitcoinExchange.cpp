@@ -175,6 +175,8 @@ void	BitcoinExchange::getResults(std::string str) {
 					else
 						std::cout << "Error: current date and lower dates not found." << std::endl;
 				}
+				else
+					std::cout << "Error: bad input => " << date << std::endl;
 			}
 		}
 	}
