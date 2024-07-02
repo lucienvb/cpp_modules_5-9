@@ -28,7 +28,11 @@ public:
     RPN &operator=(const RPN &obj);
     ~RPN();
 
-    void	parse(std::string str);
+    bool	parse(std::string str);
+    void    printTop();
+    void    printVariant(const VarType& var);
+    bool    process();
+    void    calculate(int first, int second, char operation);
 
 private:
     std::stack<VarType> _stack;
