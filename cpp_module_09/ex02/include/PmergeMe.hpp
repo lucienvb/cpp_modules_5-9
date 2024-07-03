@@ -21,12 +21,14 @@ public:
     bool parse(char **argv);
 
     void printVec();
+    void printList();
     size_t getVecSize();
+    size_t getListSize();
 
-    void mergeInsertSort();
-    void mergeInsertSort(std::vector<int>& arr, int left, int right);
-    void insertionSort(std::vector<int>& arr, int left, int right);
-    void merge(std::vector<int>& arr, int left, int mid, int right);
+    void mergeInsertSortVec();
+    void mergeInsertSortVec(std::vector<int>& arr, int left, int right);
+    void insertionSortVec(std::vector<int>& arr, int left, int right);
+    void mergeVec(std::vector<int>& arr, int left, int mid, int right);
 
 private:
     std::vector<int> _vec;

@@ -10,7 +10,8 @@ PmergeMe::PmergeMe(const PmergeMe &obj){
 
 PmergeMe& PmergeMe::operator=(const PmergeMe &obj){
 	if (this != &obj){
-		// this->_max_size = obj._max_size;
+		this->_vec = obj._vec;
+		this->_list = obj._list;
 	}
 	return (*this);
 }
@@ -26,6 +27,7 @@ bool PmergeMe::parse(char **argv) {
             if (num < 0 || num > std::numeric_limits<int>::max())
                 return false;
             _vec.push_back(num);
+            _list.push_back(num);
         }
     }
     catch (std::exception &e) {
@@ -34,9 +36,7 @@ bool PmergeMe::parse(char **argv) {
     return true;
 }
 
-// // Function to merge two sorted ranges
-// template <typename T>
-void PmergeMe::merge(std::vector<int>& arr, int left, int mid, int right) {
+void PmergeMe::mergeVec(std::vector<int>& arr, int left, int mid, int right) {
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
@@ -64,8 +64,7 @@ void PmergeMe::merge(std::vector<int>& arr, int left, int mid, int right) {
     }
 }
 
-// // Function to perform insertion sort on a range
-void PmergeMe::insertionSort(std::vector<int>& arr, int left, int right) {
+void PmergeMe::insertionSortVec(std::vector<int>& arr, int left, int right) {
     for (int i = left + 1; i <= right; ++i) {
         int key = arr[i];
         int j = i - 1;
@@ -77,33 +76,38 @@ void PmergeMe::insertionSort(std::vector<int>& arr, int left, int right) {
     }
 }
 
-// Merge-insert sort function
-void PmergeMe::mergeInsertSort(std::vector<int>& arr, int left, int right) {
-    // (void)arr;
-    // (void)left;
-    // (void)right;
-	// std::cout << "test" << std::endl;
+void PmergeMe::mergeInsertSortVec(std::vector<int>& arr, int left, int right) {
 	
 	if (right - left + 1 <= 16) {
-        insertionSort(arr, left, right);
+        insertionSortVec(arr, left, right);
     } else {
         int mid = left + (right - left) / 2;
-        mergeInsertSort(arr, left, mid);
-        mergeInsertSort(arr, mid + 1, right);
-        merge(arr, left, mid, right);
+        mergeInsertSortVec(arr, left, mid);
+        mergeInsertSortVec(arr, mid + 1, right);
+        mergeVec(arr, left, mid, right);
     }
 }
 
-void PmergeMe::mergeInsertSort() {
-    mergeInsertSort(_vec, 0, _vec.size() -1);
+void PmergeMe::mergeInsertSortVec() {
+    mergeInsertSortVec(_vec, 0, _vec.size() -1);
 }
 
 size_t PmergeMe::getVecSize() {
     return _vec.size();
 }
 
+size_t PmergeMe::getListSize() {
+    return _list.size();
+}
+
 void PmergeMe::printVec() {
     for (const int& i : _vec)
+        std::cout << i << " ";
+    std::cout << "\n";
+}
+
+void PmergeMe::printList() {
+    for (const int& i : _list)
         std::cout << i << " ";
     std::cout << "\n";
 }
