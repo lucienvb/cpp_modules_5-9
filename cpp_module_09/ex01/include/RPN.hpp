@@ -16,6 +16,8 @@ public:
     void    printNumbersTop();
     bool    process();
     void    calculate(int first, int second, char operation);
+    bool    isDecimal(char num);
+    bool    isOperation(char operation);
 
 private:
     std::stack<long long> _numbers;

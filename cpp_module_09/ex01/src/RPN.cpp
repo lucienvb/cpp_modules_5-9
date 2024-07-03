@@ -53,6 +53,15 @@ bool	RPN::process() {
 	return true;
 }
 
+bool	RPN::isDecimal(char num) {
+	return (num >= '0' && num <= '9');
+}
+
+bool	RPN::isOperation(char operation) {
+	return (operation == '+' || operation == '-' ||
+				operation == '*' || operation == '/');
+}
+
 bool	RPN::parse(std::string str) {
 	int i = str.size() - 1;
 
@@ -61,16 +70,18 @@ bool	RPN::parse(std::string str) {
 			i--;
 			continue;
 		}
-		else if (str[i] >= '0' && str[i] <= '9')
+		else if (isDecimal(str[i]) && str[i-1] == '-')
+			_numbers.push((str[i--] - '0') * -1);
+		else if (isDecimal(str[i]))
 			_numbers.push(str[i] - '0');
-		else if (str[i] == '+' || str[i] == '-' ||
-				str[i] == '*' || str[i] == '/')
+		else if (isOperation(str[i]))
 			_operations.push(str[i]);
 		else
 			return false;
 		i--;
 	}
-	if (_numbers.size() < 2 || _operations.size() < 1)
+	if ((_numbers.size() < 2 || _operations.size() < 1) ||
+		(_operations.size() >= _numbers.size()))
 		return false;
 	return true;
 }
