@@ -5,6 +5,11 @@
 #include <vector>
 #include <iterator>
 #include <algorithm>
+#include <list>
+#include <string>
+#include <exception>
+#include <limits>
+#include <chrono>
 
 class PmergeMe {
 public:
@@ -13,15 +18,19 @@ public:
     PmergeMe &operator=(const PmergeMe &obj);
     ~PmergeMe();
 
-    template <typename T>
-    void mergeInsertSort(std::vector<T>& arr, int left, int right);
+    bool parse(char **argv);
 
-    // template <typename T>
-    // void insertionSort(std::vector<T>& arr, int left, int right);
+    void printVec();
+    size_t getVecSize();
 
-    // template <typename T>
-    // void merge(std::vector<T>& arr, int left, int mid, int right);
+    void mergeInsertSort();
+    void mergeInsertSort(std::vector<int>& arr, int left, int right);
+    void insertionSort(std::vector<int>& arr, int left, int right);
+    void merge(std::vector<int>& arr, int left, int mid, int right);
 
+private:
+    std::vector<int> _vec;
+    std::list<int> _list;
 };
 
 #endif

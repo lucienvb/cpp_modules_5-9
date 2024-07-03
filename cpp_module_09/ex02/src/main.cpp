@@ -1,29 +1,26 @@
 #include "PmergeMe.hpp"
 
-int main() {
-    PmergeMe merge;
-    std::vector<int> arr = {34, 7, 23, 32, 5, 62, 32, 5, 62, 32, 5, 62, 1, 12, 2, 3, 56, 23, 54};
+std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
 
-    merge.mergeInsertSort(arr, 0, arr.size() - 1);
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        std::cout << "Error: no arguments provided" << std::endl;
+        return 1;
+    }
+    PmergeMe sort;
+    if (!sort.parse(argv)) {
+        std::cout << "Error: invalid arguments" << std::endl;
+        return 1;
+    }
+
+    std::cout << "Vector before:\t";
+    sort.printVec();
+    auto start = std::chrono::high_resolution_clock::now();
+    sort.mergeInsertSort();
+    auto end = std::chrono::high_resolution_clock::now();
+    std::cout << "Vector after:\t";
+    sort.printVec();
+    std::chrono::duration<double> duration = end - start;
+    std::cout << "Time to process a range of " << sort.getVecSize() << " elements with std::vector : " << duration.count() * 1000 << " ms" << std::endl;
     return 0;
 }
-
-// Test the merge-insert sort implementation
-// int main() {
-
-//     std::cout << "Original array: ";
-//     for (const auto& num : arr) {
-//         std::cout << num << " ";
-//     }
-//     std::cout << std::endl;
-
-//    mergeInsertSort(arr, 0, arr.size() - 1);
-
-//     std::cout << "Sorted array: ";
-//     for (const auto& num : arr) {
-//         std::cout << num << " ";
-//     }
-//     std::cout << std::endl;
-
-//     return 0;
-// }
