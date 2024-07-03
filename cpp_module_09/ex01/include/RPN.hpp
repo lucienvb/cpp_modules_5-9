@@ -15,7 +15,7 @@ public:
     bool	parse(std::string str);
     void    printNumbersTop();
     bool    process();
-    void    calculate(int first, int second, char operation);
+    void    calculate(long long first, long long second, char operation);
     bool    isDecimal(char num);
     bool    isOperation(char operation);
 

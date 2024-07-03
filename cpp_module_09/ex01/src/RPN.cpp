@@ -22,8 +22,8 @@ void	RPN::printNumbersTop() {
 	std::cout << _numbers.top() << std::endl;
 }
 
-void	RPN::calculate(int first, int second, char operation) {
-	int result;
+void	RPN::calculate(long long first, long long second, char operation) {
+	long long result;
 
 	if (operation == '+')
 		result = first + second;
