@@ -10,23 +10,16 @@ RPN::RPN(const RPN &obj){
 
 RPN& RPN::operator=(const RPN &obj){
 	if (this != &obj){
-		_stack = obj._stack;
+		_numbers = obj._numbers;
+		_operations = obj._operations;
 	}
 	return (*this);
 }
 
 RPN::~RPN() {}
 
-void	RPN::printTop() {
-	printVariant(_stack.top());
-}
-
-void RPN::printVariant(const VarType& var) {
-    if (var.type == ValueType::INT) {
-        std::cout << var.intValue << std::endl;
-    } else if (var.type == ValueType::CHAR) {
-        std::cout << var.charValue << std::endl;
-    }
+void	RPN::printNumbersTop() {
+	std::cout << _numbers.top() << std::endl;
 }
 
 void	RPN::calculate(int first, int second, char operation) {
@@ -40,36 +33,22 @@ void	RPN::calculate(int first, int second, char operation) {
 		result = first / second;
 	else
 		result = first * second;
-	_stack.push(result);
+	_numbers.push(result);
 }
 
 bool	RPN::process() {
 	char	operation;
-	VarType current = 0;
 	int 	second;
 	int 	first;
 
-	while (_stack.size() > 2) {
-		current = _stack.top();
-		if (current.type == ValueType::INT) {
-			first = current.intValue;
-			_stack.pop();
-		}
-		else
-			return false;
-		current = _stack.top();
-		if (current.type == ValueType::INT) {
-			second = current.intValue;
-			_stack.pop();
-		}
-		else
-			return false;
-		current = _stack.top();
-		if (current.type == ValueType::CHAR) {
-			operation = current.charValue;
-			_stack.pop();
-			calculate(first, second, operation);
-		}
+	while (_numbers.size() > 1 && _operations.size() > 0) {
+		first = _numbers.top();
+		_numbers.pop();
+		second = _numbers.top();
+		_numbers.pop();
+		operation = _operations.top();
+		_operations.pop();
+		calculate(first, second, operation);
 	}
 	return true;
 }
@@ -83,15 +62,15 @@ bool	RPN::parse(std::string str) {
 			continue;
 		}
 		else if (str[i] >= '0' && str[i] <= '9')
-			_stack.push(str[i] - '0');
+			_numbers.push(str[i] - '0');
 		else if (str[i] == '+' || str[i] == '-' ||
 				str[i] == '*' || str[i] == '/')
-			_stack.push(str[i]);
-		else {
-			std::cout << "Error: invalid input" << std::endl;
+			_operations.push(str[i]);
+		else
 			return false;
-		}
 		i--;
 	}
+	if (_numbers.size() < 2 || _operations.size() < 1)
+		return false;
 	return true;
 }

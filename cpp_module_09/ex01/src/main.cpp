@@ -6,12 +6,14 @@ int main(int argc, char **argv) {
         return 1;
     }
     RPN rpn;
-    if (!rpn.parse(argv[1]))
+    if (!rpn.parse(argv[1])) {
+        std::cout << "Error: invalid input" << std::endl;
         return 1;
+    }
     if (!rpn.process()) {
         std::cout << "Error: invalid order" << std::endl;
         return 1;
     }
-    rpn.printTop();
+    rpn.printNumbersTop();
     return 0;
 }

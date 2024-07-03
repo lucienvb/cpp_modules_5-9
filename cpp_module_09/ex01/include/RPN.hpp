@@ -5,22 +5,6 @@
 #include <iostream>
 #include <variant>
 
-enum class ValueType { 
-    INT, 
-    CHAR 
-};
-
-struct VarType {
-    ValueType type;
-    union {
-        int intValue;
-        char charValue;
-    };
-
-    VarType(int value) : type(ValueType::INT), intValue(value) {}
-    VarType(char value) : type(ValueType::CHAR), charValue(value) {}
-};
-
 class RPN {
 public:
     RPN();
@@ -29,13 +13,13 @@ public:
     ~RPN();
 
     bool	parse(std::string str);
-    void    printTop();
-    void    printVariant(const VarType& var);
+    void    printNumbersTop();
     bool    process();
     void    calculate(int first, int second, char operation);
 
 private:
-    std::stack<VarType> _stack;
+    std::stack<long long> _numbers;
+    std::stack<char> _operations;
 };
 
 #endif
