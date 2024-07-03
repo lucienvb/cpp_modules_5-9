@@ -30,8 +30,8 @@ public:
     void insertionSortVec(std::vector<int>& arr, int left, int right);
     void mergeVec(std::vector<int>& arr, int left, int mid, int right);
 
-    void mergeList(typename std::list<int>::iterator left, typename std::list<int>::iterator mid, typename std::list<int>::iterator right);
-    void insertionSortList(typename std::list<int>::iterator left, typename std::list<int>::iterator right);
+    // void mergeList(typename std::list<int>::iterator left, typename std::list<int>::iterator mid, typename std::list<int>::iterator right);
+    // void insertionSortList(typename std::list<int>::iterator left, typename std::list<int>::iterator right);
     void mergeInsertSortList(std::list<int>& lst, typename std::list<int>::iterator left, typename std::list<int>::iterator right, int size);
     void mergeInsertSortList();
 

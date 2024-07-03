@@ -92,7 +92,7 @@ void PmergeMe::mergeInsertSortVec() {
     mergeInsertSortVec(_vec, 0, _vec.size() -1);
 }
 
-void PmergeMe::mergeList(typename std::list<int>::iterator left, typename std::list<int>::iterator mid, typename std::list<int>::iterator right) {
+static void mergeList(typename std::list<int>::iterator left, typename std::list<int>::iterator mid, typename std::list<int>::iterator right) {
     std::list<int> leftList(left, std::next(mid));
     std::list<int> rightList(std::next(mid), std::next(right));
 
@@ -117,7 +117,7 @@ void PmergeMe::mergeList(typename std::list<int>::iterator left, typename std::l
     }
 }
 
-void PmergeMe::insertionSortList(typename std::list<int>::iterator left, typename std::list<int>::iterator right) {
+static void insertionSortList(typename std::list<int>::iterator left, typename std::list<int>::iterator right) {
     for (auto it = std::next(left); it != std::next(right); ++it) {
         auto key = *it;
         auto j = std::prev(it);
@@ -131,6 +131,7 @@ void PmergeMe::insertionSortList(typename std::list<int>::iterator left, typenam
 }
 
 void PmergeMe::mergeInsertSortList(std::list<int>& lst, typename std::list<int>::iterator left, typename std::list<int>::iterator right, int size) {
+    // (void)lst;
     if (size <= 16) {
         insertionSortList(left, right);
     } else {
@@ -139,6 +140,7 @@ void PmergeMe::mergeInsertSortList(std::list<int>& lst, typename std::list<int>:
         mergeInsertSortList(lst, left, mid, midSize);
         mergeInsertSortList(lst, std::next(mid), right, size - midSize);
         mergeList(left, mid, right);
+        printList();
     }
 }
 
