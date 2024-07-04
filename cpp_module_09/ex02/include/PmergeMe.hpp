@@ -5,11 +5,13 @@
 #include <vector>
 #include <iterator>
 #include <algorithm>
-#include <list>
 #include <string>
 #include <exception>
 #include <limits>
 #include <chrono>
+#include <array>
+
+#define MINIMUM_NUMBERS 3000
 
 class PmergeMe {
 public:
@@ -20,24 +22,31 @@ public:
 
     bool parse(char **argv);
 
+    void setSize(int argc);
+
     void printVec();
-    void printList();
+    void printArr();
+
     size_t getVecSize();
-    size_t getListSize();
+    size_t getArrSize();
 
     void mergeInsertSortVec();
     void mergeInsertSortVec(std::vector<int>& arr, int left, int right);
     void insertionSortVec(std::vector<int>& arr, int left, int right);
     void mergeVec(std::vector<int>& arr, int left, int mid, int right);
 
-    // void mergeList(typename std::list<int>::iterator left, typename std::list<int>::iterator mid, typename std::list<int>::iterator right);
-    // void insertionSortList(typename std::list<int>::iterator left, typename std::list<int>::iterator right);
-    void mergeInsertSortList(std::list<int>& lst, typename std::list<int>::iterator left, typename std::list<int>::iterator right, int size);
-    void mergeInsertSortList();
+    void mergeInsertSortArr();
+    template <size_t N>
+    void mergeInsertSortArr(std::array<int, N>& arr, int left, int right);
+    template <size_t N>
+    void insertionSortArr(std::array<int, N>& arr, int left, int right);
+    template <size_t N>
+    void mergeArr(std::array<int, N>& arr, int left, int mid, int right);
 
 private:
     std::vector<int> _vec;
-    std::list<int> _list;
+    std::array<int, MINIMUM_NUMBERS> _arr;
+    size_t _size;
 };
 
 #endif
