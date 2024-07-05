@@ -12,6 +12,7 @@
 #include <array>
 
 #define MINIMUM_NUMBERS 3000
+#define THRESHOLD 16
 
 class PmergeMe {
 public:

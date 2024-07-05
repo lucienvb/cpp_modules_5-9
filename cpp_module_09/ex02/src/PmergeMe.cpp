@@ -2,13 +2,13 @@
 
 PmergeMe::PmergeMe() {}
 
-PmergeMe::PmergeMe(const PmergeMe &obj){
+PmergeMe::PmergeMe(const PmergeMe &obj) {
 	if (this != &obj){
 		*this = obj;
 	}
 }
 
-PmergeMe& PmergeMe::operator=(const PmergeMe &obj){
+PmergeMe& PmergeMe::operator=(const PmergeMe &obj) {
 	if (this != &obj){
 		this->_vec = obj._vec;
 		this->_arr = obj._arr;
@@ -83,7 +83,7 @@ void PmergeMe::insertionSortVec(std::vector<int>& arr, int left, int right) {
 
 void PmergeMe::mergeInsertSortVec(std::vector<int>& arr, int left, int right) {
 	
-	if (right - left + 1 <= 16) {
+	if (right - left + 1 <= THRESHOLD) {
         insertionSortVec(arr, left, right);
     } else {
         int mid = left + (right - left) / 2;
@@ -172,7 +172,7 @@ void PmergeMe::printVec() {
 }
 
 void PmergeMe::printArr() {
-    for (int i = 0; _arr[i]; i++)
+    for (size_t i = 0; i <= _size; i++)
         std::cout << _arr[i] << " ";
     std::cout << "\n";
 }

@@ -16,8 +16,8 @@ int main(int argc, char **argv) {
     sort.setSize(argc);
 
     std::cout << "Before:\t";
-    // sort.printVec();
-    sort.printArr();
+    sort.printVec();
+    // sort.printArr();
     auto start = std::chrono::high_resolution_clock::now();
     sort.mergeInsertSortVec();
     auto end = std::chrono::high_resolution_clock::now();
