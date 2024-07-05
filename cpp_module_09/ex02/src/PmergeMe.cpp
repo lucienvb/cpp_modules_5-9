@@ -70,12 +70,12 @@ void PmergeMe::mergeVec(std::vector<int>& arr, int left, int mid, int right) {
 }
 
 void PmergeMe::insertionSortVec(std::vector<int>& arr, int left, int right) {
-    for (int i = left + 1; i <= right; ++i) {
+    for (int i = left; i <= right; i++) {
         int key = arr[i];
         int j = i - 1;
         while (j >= left && arr[j] > key) {
             arr[j + 1] = arr[j];
-            --j;
+            j--;
         }
         arr[j + 1] = key;
     }
@@ -83,7 +83,7 @@ void PmergeMe::insertionSortVec(std::vector<int>& arr, int left, int right) {
 
 void PmergeMe::mergeInsertSortVec(std::vector<int>& arr, int left, int right) {
 	
-	if (right - left + 1 <= THRESHOLD) {
+	if (right - left < THRESHOLD) {
         insertionSortVec(arr, left, right);
     } else {
         int mid = left + (right - left) / 2;
@@ -105,7 +105,6 @@ void PmergeMe::mergeArr(std::array<int, N>& arr, int left, int mid, int right) {
     std::array<int, MINIMUM_NUMBERS> leftArr;
     std::array<int, MINIMUM_NUMBERS> rightArr;
     
-
     std::copy(arr.begin() + left, arr.begin() + mid + 1, leftArr.begin());
     std::copy(arr.begin() + mid + 1, arr.begin() + right + 1, rightArr.begin());
 
@@ -129,12 +128,13 @@ void PmergeMe::mergeArr(std::array<int, N>& arr, int left, int mid, int right) {
 
 template <size_t N>
 void PmergeMe::insertionSortArr(std::array<int, N>& arr, int left, int right) {
-    for (int i = left + 1; i <= right; ++i) {
+    
+    for (int i = left; i <= right; i++) {
         int key = arr[i];
         int j = i - 1;
         while (j >= left && arr[j] > key) {
             arr[j + 1] = arr[j];
-            --j;
+            j--;
         }
         arr[j + 1] = key;
     }
@@ -143,7 +143,7 @@ void PmergeMe::insertionSortArr(std::array<int, N>& arr, int left, int right) {
 template <size_t N>
 void PmergeMe::mergeInsertSortArr(std::array<int, N>& arr, int left, int right) {
 	
-	if (right - left + 1 <= 16) {
+	if (right - left < THRESHOLD) {
         insertionSortArr(arr, left, right);
     } else {
         int mid = left + (right - left) / 2;
