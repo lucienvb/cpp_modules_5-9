@@ -12,16 +12,15 @@ public:
     RPN &operator=(const RPN &obj);
     ~RPN();
 
-    bool	parse(std::string str);
-    void    printNumbersTop();
-    bool    process();
-    void    calculate(long long first, long long second, char operation);
+    bool	processRPN(std::string str);
+    void    printResult();
+    void    calculate(char operation);
     bool    isDecimal(char num);
     bool    isOperation(char operation);
 
 private:
+    long long _current;
     std::stack<long long> _numbers;
-    std::stack<char> _operations;
 };
 
 #endif

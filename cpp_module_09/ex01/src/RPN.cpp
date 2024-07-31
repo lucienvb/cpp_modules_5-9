@@ -1,6 +1,6 @@
 #include "RPN.hpp"
 
-RPN::RPN() {}
+RPN::RPN(): _current(-1) {}
 
 RPN::RPN(const RPN &obj){
 	if (this != &obj){
@@ -11,46 +11,30 @@ RPN::RPN(const RPN &obj){
 RPN& RPN::operator=(const RPN &obj){
 	if (this != &obj){
 		_numbers = obj._numbers;
-		_operations = obj._operations;
+		_current = obj._current;
 	}
 	return (*this);
 }
 
 RPN::~RPN() {}
 
-void	RPN::printNumbersTop() {
-	std::cout << _numbers.top() << std::endl;
+void	RPN::printResult() {
+	std::cout << _current << std::endl;
 }
 
-void	RPN::calculate(long long first, long long second, char operation) {
-	long long result;
+void	RPN::calculate(char operation) {
+	
+	long long top = _numbers.top();
+	_numbers.pop();
 
 	if (operation == '+')
-		result = first + second;
+		_current += top;
 	else if (operation == '-')
-		result = first - second;
+		_current -= top;
 	else if (operation == '/')
-		result = first / second;
+		_current /= top;
 	else
-		result = first * second;
-	_numbers.push(result);
-}
-
-bool	RPN::process() {
-	char	operation;
-	int 	second;
-	int 	first;
-
-	while (_numbers.size() > 1 && _operations.size() > 0) {
-		first = _numbers.top();
-		_numbers.pop();
-		second = _numbers.top();
-		_numbers.pop();
-		operation = _operations.top();
-		_operations.pop();
-		calculate(first, second, operation);
-	}
-	return true;
+		_current *= top;
 }
 
 bool	RPN::isDecimal(char num) {
@@ -62,26 +46,26 @@ bool	RPN::isOperation(char operation) {
 				operation == '*' || operation == '/');
 }
 
-bool	RPN::parse(std::string str) {
-	int i = str.size() - 1;
+bool	RPN::processRPN(std::string str) {
+	int i = 0;
 
-	while (i >= 0) {
+	while (str[i]) {
+
 		if (str[i] == ' ') {
-			i--;
+			i++;
 			continue;
 		}
-		else if (isDecimal(str[i]) && str[i-1] == '-')
-			_numbers.push((str[i--] - '0') * -1);
-		else if (isDecimal(str[i]))
-			_numbers.push(str[i] - '0');
-		else if (isOperation(str[i]))
-			_operations.push(str[i]);
+		else if (isDecimal(str[i])) {
+			if (_current == -1)
+				_current = str[i] - '0';
+			else
+				_numbers.push(str[i] - '0');
+		}
+		else if (isOperation(str[i]) && _numbers.size() > 0)
+			calculate(str[i]);
 		else
 			return false;
-		i--;
+		i++;
 	}
-	if ((_numbers.size() < 2 || _operations.size() < 1) ||
-		(_operations.size() >= _numbers.size()))
-		return false;
 	return true;
 }
