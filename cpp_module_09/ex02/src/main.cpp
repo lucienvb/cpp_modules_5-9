@@ -29,9 +29,9 @@ int main(int argc, char **argv) {
     std::chrono::duration<double> durationArr = end - start;
 
     std::cout << "After:\t";
-    sort.printVec();
-    // sort.printArr();
+    // sort.printVec();
+    sort.printArr();
     std::cout << "Time to process a range of " << sort.getVecSize() << " elements with std::vector : " << durationVec.count() * 1000 << " ms" << std::endl;
-    std::cout << "Time to process a range of " << sort.getArrSize() << " elements with std::list : " << durationArr.count() * 1000 << " ms" << std::endl;
+    std::cout << "Time to process a range of " << sort.getArrSize() << " elements with std::array : " << durationArr.count() * 1000 << " ms" << std::endl;
     return 0;
 }
