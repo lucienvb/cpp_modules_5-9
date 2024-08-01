@@ -22,7 +22,7 @@ void	RPN::printResult() {
 	std::cout << _current << std::endl;
 }
 
-void	RPN::calculate(char operation) {
+bool	RPN::calculate(char operation) {
 	
 	long long top = _numbers.top();
 	_numbers.pop();
@@ -31,10 +31,14 @@ void	RPN::calculate(char operation) {
 		_current += top;
 	else if (operation == '-')
 		_current -= top;
-	else if (operation == '/')
+	else if (operation == '/') {
+		if (top == 0)
+			return false;
 		_current /= top;
+	}
 	else
 		_current *= top;
+	return true;
 }
 
 bool	RPN::isDecimal(char num) {
@@ -61,8 +65,10 @@ bool	RPN::processRPN(std::string str) {
 			else
 				_numbers.push(str[i] - '0');
 		}
-		else if (isOperation(str[i]) && _numbers.size() > 0)
-			calculate(str[i]);
+		else if (isOperation(str[i]) && _numbers.size() > 0) {
+			if (!calculate(str[i]))
+				return false;
+		}
 		else
 			return false;
 		i++;

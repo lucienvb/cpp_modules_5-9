@@ -1,38 +1,49 @@
-echo '"+" should be invalid'
-./RPN "+"
+# Basic operations
+./RPN "2 3 +"           # 5
+./RPN "10 4 -"          # 6
+./RPN "6 3 /"           # 2
+./RPN "5 3 *"           # 15
 
-echo '\n"-" should be invalid'
-./RPN "-"
+# Mixed operations
+./RPN "5 1 2 + 4 * + 3 -"      # 14
+./RPN "2 3 4 * +"              # 14
+./RPN "2 3 + 4 *"              # 20
+./RPN "2 3 4 + *"              # 14
 
-echo '\n"/" should be invalid'
-./RPN "/"
+# Handling of zero and negatives
+./RPN "0 3 +"           # 3
+./RPN "5 0 -"           # 5
+./RPN "0 5 -"           # -5
+./RPN "0 3 *"           # 0
+./RPN "3 0 *"           # 0
+./RPN "6 3 0 /"         # Error (division by zero)
+./RPN "-2 -3 *"         # 6
 
-echo '\n"*" should be invalid'
-./RPN "*"
+# Order of operations without parentheses
+./RPN "5 1 2 + 4 * + 3 -"      # 14
+./RPN "3 5 8 * 7 + *"          # 141
+./RPN "4 2 + 3 5 1 - * +"      # 18
 
-echo '\n"+ +" should be invalid'
-./RPN "+ +"
+# Complex expressions
+./RPN "15 7 1 1 + - / 3 * 2 1 1 + + -"  # 5
+./RPN "9 3 / 2 * 5 +"                   # 11
 
-echo '\n"1 1 +" = 2'
-./RPN "1 1 +"
+# Powers and Exponents
+./RPN "2 3 ^"           # 8 (Assuming ^ is power operator)
+./RPN "4 2 ^ 2 /"       # 8
 
-echo '\n"2 4 * 8 +" = 16'
-./RPN "2 4 * 8 +"
+# More edge cases
+./RPN ""                # Error (empty input)
+./RPN "4 2 +"           # 6
+./RPN "4 2 3 +"         # Error (too many operands)
+./RPN "+"               # Error (missing operands)
+./RPN "4 2 + +"         # Error (too many operators)
+./RPN "4 2 3"           # Error (not enough operators)
+./RPN "5 5 +"           # 10
 
-echo '\n"2 4 8 + *" = 48'
-./RPN "2 4 8 + *"
+# Parentheses and invalid characters
+./RPN "(1 2 +)"         # Error (invalid characters/parentheses)
+./RPN "2 3 4 a +"       # Error (invalid characters)
 
-echo '\n"8 6 9 3 + -1 * / * 7 + 5 +" = -30'
-./RPN "8 6 9 3 + -1 * / * 7 + 5 +"
-
-echo '\n"9 3 5 * - -2 -2 -8 * + /" = 6'
-./RPN "9 3 5 * - -2 -4 -8 * + /"
-
-echo '\n"9 3 5 * / - -2 -2 -8 * + /" should be invalid'
-./RPN "9 3 5 * / - -2 -4 -8 * + /"
-
-echo '\n"1 9 -" = -8'
-./RPN "1 9 -"
-
-echo '\n"2 -9 /" = 0'
-./RPN "2 -9 /"
+# Nested operations
+./RPN "3 4 2 * 1 5 - 2 3 ^ ^ / +"  # 3.75

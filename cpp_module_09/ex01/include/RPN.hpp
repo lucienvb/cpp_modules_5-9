@@ -14,7 +14,7 @@ public:
 
     bool	processRPN(std::string str);
     void    printResult();
-    void    calculate(char operation);
+    bool    calculate(char operation);
     bool    isDecimal(char num);
     bool    isOperation(char operation);
 
