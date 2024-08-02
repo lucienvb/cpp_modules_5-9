@@ -1,6 +1,12 @@
+# 42 test cases
+./RPN "8 9 * 9 - 9 - 9 - 4 - 1 +"
+./RPN "7 7 * 7 -"
+./RPN "1 2 * 2 / 2 * 2 4 - +"
+./RPN "(1 + 1)"
+
 # Basic operations
 ./RPN "2 3 +"           # 5
-./RPN "10 4 -"          # 6
+./RPN "9 4 -"          # 5
 ./RPN "6 3 /"           # 2
 ./RPN "5 3 *"           # 15
 
@@ -25,12 +31,8 @@
 ./RPN "4 2 + 3 5 1 - * +"      # 18
 
 # Complex expressions
-./RPN "15 7 1 1 + - / 3 * 2 1 1 + + -"  # 5
+./RPN "8 4 1 1 + - / 3 * 2 1 1 + + -"  # 8
 ./RPN "9 3 / 2 * 5 +"                   # 11
-
-# Powers and Exponents
-./RPN "2 3 ^"           # 8 (Assuming ^ is power operator)
-./RPN "4 2 ^ 2 /"       # 8
 
 # More edge cases
 ./RPN ""                # Error (empty input)
@@ -45,5 +47,3 @@
 ./RPN "(1 2 +)"         # Error (invalid characters/parentheses)
 ./RPN "2 3 4 a +"       # Error (invalid characters)
 
-# Nested operations
-./RPN "3 4 2 * 1 5 - 2 3 ^ ^ / +"  # 3.75

@@ -19,7 +19,6 @@ public:
     bool    isOperation(char operation);
 
 private:
-    long long _current;
     std::stack<long long> _numbers;
 };
 
